@@ -1736,8 +1736,23 @@ button {
     grid-template-columns: 1fr;
   }
   .ride-poster {
-    max-height: 620px;
+    display: block;
+    width: min(100%, 420px);
+    height: auto;
+    aspect-ratio: 941 / 1671;
+    max-height: none;
     min-height: 0;
+    margin: 0 auto;
+    object-fit: contain;
+    background: #0b0b0b;
+  }
+  .ride-details {
+    align-items: center;
+    text-align: center;
+  }
+  .ride-actions {
+    justify-content: center;
+    width: 100%;
   }
   .ride-actions {
     align-items: stretch;
