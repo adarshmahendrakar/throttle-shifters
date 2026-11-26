@@ -46,7 +46,7 @@ function App() {
     <Header currentPage={currentPage} menuOpen={menuOpen} onToggleMenu={() => setMenuOpen((open) => !open)} onNavigate={navigate} />
     <main>{currentPage === 'home' ? <HomePage onNavigate={navigate} /> : currentPage === 'rides' ? <RidesEventsPage onNavigate={navigate} /> : currentPage === 'gallery' ? <GalleryPage onNavigate={navigate} /> : currentPage === 'about' ? <AboutPage onNavigate={navigate} /> : currentPage === 'contact' ? <ContactPage onNavigate={navigate} /> : <PlaceholderPage copy={pageCopy[currentPage]} onNavigate={navigate} />}</main>
     <Footer />
-    {showRideModal && <UpcomingRideModal onClose={() => setShowRideModal(false)} />}
+    {showRideModal && <UpcomingRideModal onClose={() => setShowRideModal(false)} onNavigate={navigate} />}
   </div>
 }
 
