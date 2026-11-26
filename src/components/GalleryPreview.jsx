@@ -1,27 +1,56 @@
-import { ArrowRight } from "lucide-react";
-import mountainRide from "../assets/Community/WhatsApp Image 2026-11-24 at 2.54.23 AM.jpeg";
-import rockyRide from "../assets/Community/WhatsApp Image 2026-11-24 at 2.55.29 AM.jpeg";
-import groupRide from "../assets/Community/WhatsApp Image 2026-11-24 at 3.01.26 AM.jpeg";
-import bikeLineup from "../assets/Community/WhatsApp Image 2026-11-24 at 3.09.24 AM.jpeg";
-import bannerRide from "../assets/Community/WhatsApp Image 2026-11-24 at 3.13.15 AM.jpeg";
-import beachRide from "../assets/Community/WhatsApp Image 2026-11-24 at 3.19.01 AM.jpeg";
+import { ArrowRight, X } from "lucide-react";
+import { useEffect, useState } from "react";
 
-const galleryImages = [
-  { src: mountainRide, alt: "Throttle Shifters riders on a mountain trail" },
-  {
-    src: rockyRide,
-    alt: "Throttle Shifters riders with motorcycles on rocky terrain",
-  },
-  { src: groupRide, alt: "Throttle Shifters group holding the club flag" },
-  { src: bikeLineup, alt: "Throttle Shifters motorcycles lined up for a ride" },
-  {
-    src: bannerRide,
-    alt: "Throttle Shifters riders posing with the club banner",
-  },
-  { src: beachRide, alt: "Throttle Shifters motorcycles beside the sea" },
-];
+const allGalleryImages = Object.entries(
+  import.meta.glob("../assets/Community/*.{jpeg,jpg,png,webp}", {
+    eager: true,
+    import: "default",
+    query: "?url",
+  }),
+)
+  .sort(([first], [second]) =>
+    first.localeCompare(second, undefined, { numeric: true }),
+  )
+  .map(([path, src]) => ({
+    src,
+    alt: path
+      .split("/")
+      .pop()
+      .replace(/\.[^/.]+$/, "")
+      .replace(/WhatsApp Image \d{4}-\d{2}-\d{2} at /, "Ride memory "),
+  }));
+
+function shuffleImages(images) {
+  return [...images].sort(() => Math.random() - 0.5).slice(0, 6);
+}
 
 export function GalleryPreview({ onNavigate }) {
+  const [galleryImages, setGalleryImages] = useState(() =>
+    shuffleImages(allGalleryImages),
+  );
+  const [shuffleVersion, setShuffleVersion] = useState(0);
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  useEffect(() => {
+    const shuffleTimer = window.setInterval(() => {
+      setGalleryImages(shuffleImages(allGalleryImages));
+      setShuffleVersion((version) => version + 1);
+    }, 5000);
+
+    return () => window.clearInterval(shuffleTimer);
+  }, []);
+
+  useEffect(() => {
+    if (!selectedImage) return undefined;
+
+    const onKeyDown = (event) => {
+      if (event.key === "Escape") setSelectedImage(null);
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [selectedImage]);
+
   return (
     <section className="gallery-preview">
       <div className="gallery-heading">
@@ -41,11 +70,40 @@ export function GalleryPreview({ onNavigate }) {
       </div>
       <div className="gallery-grid">
         {galleryImages.map((image, index) => (
-          <div className="gallery-tile" key={`${image.alt}-${index}`}>
+          <button
+            className="gallery-tile"
+            key={`${image.src}-${shuffleVersion}`}
+            style={{ "--gallery-tile-index": index }}
+            onClick={() => setSelectedImage(image)}
+            aria-label={`Open ${image.alt}`}
+          >
             <img src={image.src} alt={image.alt} loading="lazy" />
-          </div>
+          </button>
         ))}
       </div>
+
+      {selectedImage && (
+        <div
+          className="gallery-lightbox"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Expanded gallery image"
+          onClick={() => setSelectedImage(null)}
+        >
+          <button
+            className="gallery-lightbox-close"
+            onClick={() => setSelectedImage(null)}
+            aria-label="Close image"
+          >
+            <X size={24} />
+          </button>
+          <img
+            src={selectedImage.src}
+            alt={selectedImage.alt}
+            onClick={(event) => event.stopPropagation()}
+          />
+        </div>
+      )}
     </section>
   );
 }

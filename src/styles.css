@@ -1460,8 +1460,22 @@ button {
 .gallery-tile {
   min-width: 0;
   overflow: hidden;
+  padding: 0;
   border: 1px solid #2c2c2c;
   background: #191919;
+  cursor: zoom-in;
+  animation: gallery-tile-shuffle 0.75s ease both;
+  animation-delay: calc(var(--gallery-tile-index, 0) * 90ms);
+}
+@keyframes gallery-tile-shuffle {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 .gallery-tile img {
   display: block;
