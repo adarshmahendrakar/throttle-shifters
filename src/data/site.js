@@ -26,7 +26,7 @@ export const upcomingRides = [
     date: 'December 27, 2026',
     route: 'BR Hills & K-Gudi Sightseeing',
     poster: 'year-end-ride',
-    joinFormUrl: 'https://forms.google.com/',
+    joinFormUrl: 'https://forms.gle/9ivVaAf8oq6n1zve7',
     whatsappUrl: 'https://wa.me/918073074480?text=Hi%20Throttle%20Shifters%2C%20I%20want%20to%20know%20more%20about%20the%20Year%20End%20Ride.',
   },
 ]
