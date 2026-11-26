@@ -9,7 +9,7 @@ import beachRide from "../assets/Community/WhatsApp Image 2026-11-24 at 3.19.01 
 import adarshPhoto from "../assets/admins/WhatsApp Image 2026-11-24 at 4.24.09 AM.jpeg";
 import sagarPhoto from "../assets/admins/WhatsApp Image 2026-11-24 at 4.26.06 AM.jpeg";
 import ganeshPhoto from "../assets/admins/WhatsApp Image 2026-11-24 at 4.26.45 AM.jpeg";
-import abhishekPhoto from "../assets/admins/abhishek-placeholder.svg";
+import abhishekPhoto from "../assets/admins/abhishek-placeholder.jpeg";
 import nikhilPhoto from "../assets/admins/nikhil-placeholder.svg";
 
 const values = [
@@ -46,7 +46,7 @@ const admins = [
   { name: "Sagar", handle: "@j.v.sagar", role: "Co-Founder", caption: "Road Captain", image:ganeshPhoto  },
   { name: "Pavan Ganesh", handle: "@pavan_ganesh", role: "Admin", caption: "Lead Captain", image: sagarPhoto },
   { name: "Abhishek", handle: "@abinb15", role: "Media Admin", caption: "Capturing the ride stories", image: abhishekPhoto },
-  { name: "Nikhil", handle: "@nikhil", role: "YouTube Admin", caption: "Turning miles into memories", image: nikhilPhoto },
+  { name: "Nikhil", handle: "@nikhil_n_murthy_", role: "YouTube Admin", caption: "Turning miles into memories", image: nikhilPhoto },
 ];
 
 export function AboutPage({ onNavigate }) {
